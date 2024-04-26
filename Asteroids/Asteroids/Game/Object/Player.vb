@@ -22,6 +22,10 @@
             DY += -Math.Cos(Angle) * 2
         End If
 
+        If InputManager.IsKeyDown(Keys.Space) Then
+            GameState.AddBullet(New Bullet(X, Y, Math.Sin(Angle) * 10, -Math.Cos(Angle) * 10))
+        End If
+
         X += DX
         Y += DY
         Utils.WrapCoordinates(X, Y, X, Y)
