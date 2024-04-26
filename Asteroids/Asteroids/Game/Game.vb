@@ -8,6 +8,8 @@
     Private p_renderDevice As Graphics
     Private WithEvents p_tickTimer As Timer
 
+    Private Shared p_stateManager As StateManager
+
     Public Sub New(parent As Form, title As String, windowSize As Size)
         p_windowSize = windowSize
         p_parent = parent
@@ -32,6 +34,7 @@
         InputManager.Initialize(p_pictureBox)
         p_parent.Controls.Add(p_pictureBox)
         p_renderDevice = Graphics.FromImage(p_renderImage)
+        p_stateManager = New StateManager(New GameState())
     End Sub
 
     Public Sub Run()
@@ -53,11 +56,11 @@
     End Sub
 
     Private Sub Tick()
-
+        p_stateManager.Tick()
     End Sub
 
     Private Sub Render(device As Graphics)
-        device.FillRectangle(Brushes.Red, 100, 100, 50, 50)
+        p_stateManager.Render(device)
     End Sub
 
     Public Shared ReadOnly Property WindowSize As Size

@@ -1,6 +1,6 @@
 ﻿Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim game As Game = New Game(Me, "Asteroids", New Size(800, 600))
+        Dim game As Game = New Game(Me, "Asteroids", New Size(1600, 900))
         game.Run()
     End Sub
 
