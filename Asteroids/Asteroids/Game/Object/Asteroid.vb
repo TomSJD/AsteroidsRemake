@@ -1,14 +1,16 @@
 ﻿Public Class Asteroid : Inherits GameObject
 
     Private p_asteroidModel() As PointF
+    Public Property ShouldRemove As Boolean
 
     Public Sub New(x As Single, y As Single, size As Single)
         MyBase.New(x, y, size)
+        ShouldRemove = False
         GenerateAsteroidModel()
     End Sub
 
     Private Sub GenerateAsteroidModel()
-        Dim vertexes As Single = 20
+        Dim vertexes As Single = 10
         ReDim p_asteroidModel(vertexes - 1)
         For i As Single = 0 To vertexes - 1
             Dim angle As Single = (i / vertexes) * (2 * Math.PI)
