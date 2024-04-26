@@ -3,8 +3,10 @@
     Private p_asteroids As List(Of Asteroid)
     Private Shared p_bullets As List(Of Bullet)
     Private p_player As Player
+    Private p_score As Integer
 
     Public Overrides Sub Init()
+        p_score = 0
         p_asteroids = New List(Of Asteroid)
         Dim asteroid As New Asteroid(10, 10, 128) With {
             .DX = 4,
@@ -19,6 +21,9 @@
         p_player.Tick()
         p_asteroids.RemoveAll(Function(asteroid) asteroid.ShouldRemove)
         For Each asteroid As Asteroid In p_asteroids
+            If Utils.IsPointInCircle(p_player.X, p_player.Y, asteroid.X, asteroid.Y, asteroid.Size) Then
+                Game.StateManager.ChangeState(New LoseState(p_score))
+            End If
             asteroid.Tick()
         Next
 
@@ -29,7 +34,8 @@
             bullet.Tick()
             ' Collision detection
             For Each asteroid In p_asteroids
-                If Utils.IsPointInCircle(bullet.X, bullet.Y, asteroid.X, asteroid.Y, asteroid.Size) Then
+                If Utils.IsPointInCircle(bullet.X, bullet.Y, asteroid.X, asteroid.Y, asteroid.Size) And Not asteroid.ShouldRemove Then
+                    p_score += 10
                     bullet.X = -100
                     asteroid.ShouldRemove = True
                     If asteroid.Size > 32 Then
@@ -60,6 +66,7 @@
         For Each bullet As Bullet In p_bullets
             bullet.Render(device)
         Next
+        device.DrawString("Score: " & p_score, New Font("Arial", 24), Brushes.White, 10, 10)
     End Sub
 
     Public Shared Sub AddBullet(bullet As Bullet)

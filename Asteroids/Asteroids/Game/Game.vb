@@ -68,4 +68,10 @@
             Return p_windowSize
         End Get
     End Property
+
+    Public Shared ReadOnly Property StateManager As StateManager
+        Get
+            Return p_stateManager
+        End Get
+    End Property
 End Class
