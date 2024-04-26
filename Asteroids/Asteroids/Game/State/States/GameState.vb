@@ -19,6 +19,19 @@
 
     Public Overrides Sub Tick()
         p_player.Tick()
+        If p_asteroids.Count = 0 Then
+            p_asteroids.Add(New Asteroid(2 * Math.Sin(p_player.Angle - Math.PI / 2),
+                                         2 * Math.Cos(p_player.Angle - Math.PI / 2), 128) With {
+                                                    .DX = Math.Sin(p_player.Angle + Rnd()) * 4,
+                                                    .DY = Math.Cos(p_player.Angle + Rnd()) * 4
+                                          })
+            p_asteroids.Add(New Asteroid(2 * Math.Sin(p_player.Angle + Math.PI / 2),
+                                         2 * Math.Cos(p_player.Angle + Math.PI / 2), 128) With {
+                                                    .DX = Math.Sin(-p_player.Angle + Rnd()) * 4,
+                                                    .DY = Math.Cos(-p_player.Angle + Rnd()) * 4
+                                          })
+        End If
+
         p_asteroids.RemoveAll(Function(asteroid) asteroid.ShouldRemove)
         For Each asteroid As Asteroid In p_asteroids
             If Utils.IsPointInCircle(p_player.X, p_player.Y, asteroid.X, asteroid.Y, asteroid.Size) Then

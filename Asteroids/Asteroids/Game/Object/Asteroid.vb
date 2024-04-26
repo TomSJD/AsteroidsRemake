@@ -14,7 +14,8 @@
         ReDim p_asteroidModel(vertexes - 1)
         For i As Single = 0 To vertexes - 1
             Dim angle As Single = (i / vertexes) * (2 * Math.PI)
-            p_asteroidModel(i) = New PointF(Math.Sin(angle), Math.Cos(angle))
+            Dim radius As Single = 0.8 + (Rnd() * 0.4)
+            p_asteroidModel(i) = New PointF(Math.Sin(angle) * radius, Math.Cos(angle) * radius)
         Next
     End Sub
 

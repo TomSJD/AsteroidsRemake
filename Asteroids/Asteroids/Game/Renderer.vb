@@ -1,6 +1,4 @@
-﻿Imports System.Reflection.Metadata
-
-Public Class Renderer
+﻿Public Class Renderer
     ' A method that takes in 2 points and draws a line made of rectangles of a given size passed in between them using Graphics.
     Public Shared Sub DrawLine(ByVal device As Graphics, ByVal x1 As Single, ByVal y1 As Single, ByVal x2 As Single, ByVal y2 As Single, ByVal size As Single)
         Dim dx As Single = x2 - x1
