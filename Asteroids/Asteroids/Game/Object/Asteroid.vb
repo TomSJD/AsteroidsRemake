@@ -1,7 +1,19 @@
 ﻿Public Class Asteroid : Inherits GameObject
 
+    Private p_asteroidModel() As PointF
+
     Public Sub New(x As Single, y As Single, size As Single)
         MyBase.New(x, y, size)
+        GenerateAsteroidModel()
+    End Sub
+
+    Private Sub GenerateAsteroidModel()
+        Dim vertexes As Single = 20
+        ReDim p_asteroidModel(vertexes - 1)
+        For i As Single = 0 To vertexes - 1
+            Dim angle As Single = (i / vertexes) * (2 * Math.PI)
+            p_asteroidModel(i) = New PointF(Math.Sin(angle), Math.Cos(angle))
+        Next
     End Sub
 
     Public Overrides Sub Tick()
@@ -11,13 +23,6 @@
     End Sub
 
     Public Overrides Sub Render(device As Graphics)
-        For ix As Short = 0 To Size
-            For iy As Short = 0 To Size
-                Dim fx As Single = X + ix
-                Dim fy As Single = Y + iy
-                Utils.WrapCoordinates(fx, fy, fx, fy)
-                device.FillRectangle(Brushes.White, fx, fy, 1, 1)
-            Next
-        Next
+        Renderer.DrawWireFrameModel(device, p_asteroidModel, X, Y, Angle, Size, Brushes.White)
     End Sub
 End Class

@@ -1,6 +1,6 @@
 ﻿Public Class Player : Inherits GameObject
 
-    Private p_shipModel As List(Of PointF) = New List(Of PointF) From {
+    Private p_shipModel() As PointF = {
         New PointF(0, -5.5),
         New PointF(-2.5, 2.5),
         New PointF(2.5, 2.5)

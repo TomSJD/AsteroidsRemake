@@ -17,7 +17,7 @@ Public Class Renderer
         Next
     End Sub
 
-    Public Shared Sub DrawWireFrameModel(device As Graphics, vecModelCoords As List(Of PointF), x As Single, y As Single, rotation As Single, scale As Single, colour As Brush)
+    Public Shared Sub DrawWireFrameModel(device As Graphics, vecModelCoords() As PointF, x As Single, y As Single, rotation As Single, scale As Single, colour As Brush)
         Dim vertexCount As Integer = vecModelCoords.Count
         Dim transformedCoords(vertexCount) As PointF
 
@@ -46,9 +46,15 @@ Public Class Renderer
         Next
 
         ' Draw lines between points
-        For i As Integer = 0 To 3
+        For i As Integer = 0 To vertexCount - 1
             Dim j As Integer = i + 1
-            DrawLine(device, transformedCoords(i Mod 3).X, transformedCoords(i Mod 3).Y, transformedCoords(j Mod 3).X, transformedCoords(j Mod 3).Y, 3)
+            DrawLine(device,
+                     transformedCoords(i Mod vertexCount).X,
+                     transformedCoords(i Mod vertexCount).Y,
+                     transformedCoords(j Mod vertexCount).X,
+                     transformedCoords(j Mod vertexCount).Y,
+                     8
+            )
         Next
     End Sub
 End Class
