@@ -22,6 +22,7 @@
     Public Overrides Sub Tick()
         X += DX
         Y += DY
+        Angle += 0.01
         Utils.WrapCoordinates(X, Y, X, Y)
     End Sub
 
